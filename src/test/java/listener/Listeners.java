@@ -16,15 +16,19 @@ import org.testng.ITestResult;
 import com.aventstack.extentreports.ExtentTest;
 
 import ExcelTest.ExcelTry.BaseTest;
+import Logger.LogStatuses;
 import extentReports.ReportManager;
+import screenshoters.ScreenshotProvider;
 
 public class Listeners extends BaseTest implements ITestListener {
 	private ReportManager rM;
+	private LogStatuses logS;
+	private ScreenshotProvider scr;
 
 	public void onStart(ITestContext context) {
 		ExtentTest parent = rM.getReporter().createTest(context.getName());
 		rM.getParentTest().set(parent);
-		Log.info("I am in onStart method " + context.getName());
+		logS.startTestCase(context.getName());
 		context.setAttribute("WebDriver", this.driver);
 	}
 
@@ -38,37 +42,14 @@ public class Listeners extends BaseTest implements ITestListener {
 	public void onTestSuccess(ITestResult result) {
 		// TODO Auto-generated method stub
 		Log.info("Test " + result.getMethod() + " Passed!");
-		// Extentreports log operation for passed tests.
-		rM.getTest().get().pass("Test passed");
+
+		scr.takeScreenshot(result);
 	}
 
 	public void onTestFailure(ITestResult result) {
 		Log.error("Test " + result.getMethod() + " Failed!");
 
-		Object testClass = result.getInstance();
-		WebDriver webDriver = ((BaseTest) testClass).gimiDriver();
-
-		// Take base64Screenshot screenshot.
-		File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
-		// Now you can do whatever you need to do with it, for example copy somewhere
-		String pngFileName = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
-
-		try {
-			FileUtils.copyFile(scrFile, new File("\\target\\" + pngFileName + ".png"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		// Extentreports log and screenshot operations for failed tests.
-		rM.getTest().get().fail("Test Failed");
-		try {
-			rM.getTest().get().addScreenCaptureFromPath("\\target\\" + pngFileName + ".png");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		scr.takeScreenshot(result);
 	}
 
 	public void onTestSkipped(ITestResult result) {
@@ -84,7 +65,7 @@ public class Listeners extends BaseTest implements ITestListener {
 
 	public void onFinish(ITestContext context) {
 		// TODO Auto-generated method stub
-		System.out.println("I am in onFinish method " + context.getName());
+		logS.endTestCase();
 		// Do tier down operations for extentreports reporting!
 		rM.getReporter().flush();
 	}
