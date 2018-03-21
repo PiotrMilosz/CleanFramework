@@ -14,10 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import excelUtilis.ExcelUtil;
+
 public class BasePage {
 
 	protected WebDriver driver;
 	protected WebDriverWait wait;
+	protected ExcelUtil eUtil;
 	protected final Logger Log = LoggerFactory.getLogger(getClass());
 	  private static final int DEFAULT_TIMEOUT = 15;
 	private static final String ELEMENT_PRESENT_MESSAGE = "ELEMENT PRESENT";

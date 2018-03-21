@@ -33,8 +33,9 @@ public class BaseTest {
 	driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	mPage=new MainPage(driver);
 	
-	Log.info("<<<<<<<<<<<<<<<<<<Lunch Data provider>>>>>>>>>>>>>>>>>>");
+	//Initialise right excel sheet
 	ExcelUtil.setExcelFileSheet("LoginData");
+	Log.info("<<<<<<<<<<<<<<<<<<Lunch Data provider>>>>>>>>>>>>>>>>>>");
 	}
 	
 	@AfterClass

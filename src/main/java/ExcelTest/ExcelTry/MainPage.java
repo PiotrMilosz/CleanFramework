@@ -2,12 +2,14 @@ package ExcelTest.ExcelTry;
 
 import java.util.ArrayList;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import properties.GetProperties;
+import excelUtilis.ExcelUtil;
 
 public class MainPage extends BasePage {
 
@@ -32,6 +34,7 @@ public class MainPage extends BasePage {
 
 	// Open target page
 	public void openPage() {
+	
 		String url = GetProperties.getUrl();
 		driver.get(url);
 		waitForPageLoad();
@@ -40,6 +43,7 @@ public class MainPage extends BasePage {
 
 	// Verification if Page is displayed
 	public boolean isLogoDisplayed() {
+		
 		boolean isLogoDisplayed = false;
 		isLogoDisplayed = isElementOnPage(logo);
 		if (isLogoDisplayed = true) {
@@ -50,10 +54,11 @@ public class MainPage extends BasePage {
 		return isLogoDisplayed;
 	}
 	//Method to login the page
-	public void logIn() {
+	public void logIn(XSSFRow row) {
+		ExcelUtil.getRowData(1);
 		signInBtn.click();
 		Log.info("Zaloguj was clicked");
-		loginFld.sendKeys("janusz@janusz.pl");
+		loginFld.sendKeys(row.getCell(1).toString());
 		passwordFld.sendKeys("janusz666");
 		submitBtn.click();
 		
