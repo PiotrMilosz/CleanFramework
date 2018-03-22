@@ -55,7 +55,6 @@ public class MainPage extends BasePage {
 	}
 	//Method to login the page
 	public void logIn(XSSFRow row) {
-		ExcelUtil.getRowData(1);
 		signInBtn.click();
 		Log.info("Zaloguj was clicked");
 		loginFld.sendKeys(row.getCell(1).toString());
