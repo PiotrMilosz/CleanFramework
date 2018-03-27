@@ -20,6 +20,7 @@ public class BaseTest {
 
 	//ConnectedPages
 	protected MainPage mPage;
+	protected ExcelUtil excUt;
 	
 	public WebDriver gimiDriver() {
         return driver;
@@ -34,7 +35,7 @@ public class BaseTest {
 	mPage=new MainPage(driver);
 	
 	//Initialise right excel sheet
-	ExcelUtil.setExcelFileSheet("LoginData");
+	excUt.setExcelFileSheet("LoginData");
 	Log.info("<<<<<<<<<<<<<<<<<<Lunch Data provider>>>>>>>>>>>>>>>>>>");
 	}
 	

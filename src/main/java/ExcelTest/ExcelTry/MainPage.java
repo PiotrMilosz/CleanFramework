@@ -1,15 +1,10 @@
 package ExcelTest.ExcelTry;
 
-import java.util.ArrayList;
-
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import properties.GetProperties;
-import excelUtilis.ExcelUtil;
+
 
 public class MainPage extends BasePage {
 
@@ -33,9 +28,8 @@ public class MainPage extends BasePage {
 	WebElement logoutBtn;
 
 	// Open target page
-	public void openPage() {
+	public void openPage(String url) {
 	
-		String url = GetProperties.getUrl();
 		driver.get(url);
 		waitForPageLoad();
 		Log.info("Opening page " + url);
@@ -54,10 +48,10 @@ public class MainPage extends BasePage {
 		return isLogoDisplayed;
 	}
 	//Method to login the page
-	public void logIn(XSSFRow row) {
+	public void logIn(String value) {
 		signInBtn.click();
 		Log.info("Zaloguj was clicked");
-		loginFld.sendKeys(row.getCell(1).toString());
+		loginFld.sendKeys(value);
 		passwordFld.sendKeys("janusz666");
 		submitBtn.click();
 		
